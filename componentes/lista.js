@@ -1,14 +1,32 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
+import { listarIMCs } from '../uteis/funcoes';
+import balanca from '../assets/imagens/balanca_bonita.png';
 
 export default function Lista() {
     const [valorGrafico, setValorGrafico] = useState(50);
+    const [listaIMC, setListaIMC] = useState([]);
+
+    useEffect(() => {
+        let lista = listarIMCs();
+        setListaIMC(lista);
+    }, []);
+
     return (
         <React.Fragment>
-            <View style={estilos.conteudo}></View>
+            <View style={estilos.conteudo}>
+                {listaIMC.length === 0 ?
+                    <View style={estilos.listaVazia}>
+                        <Image style={estilos.balanca} source={balanca} resizeMethod="resize" resizeMode="contain" />
+                        <Text style={estilos.textoLabel}>Nenhum I.M.C. cadastrado!</Text>
+                        <Text style={estilos.textoLabel}>Vamos iniciar o controle?</Text>
+                    </View> :
+                    <Text>lista</Text>
+                }
+            </View>
             <View style={estilos.rodape}>
                 <TouchableOpacity style={estilos.botao} onPress={() => console.log('asdf')}>
-                    <Text style={estilos.texto}>Novo I.M.C.</Text>
+                    <Text style={estilos.textoBotao}>Novo I.M.C.</Text>
                 </TouchableOpacity>
                 <Text style={estilos.labelMedia}>{valorGrafico ? `Média: ${valorGrafico}` : 'Média'}</Text>
                 <View style={estilos.progress}>
@@ -33,6 +51,17 @@ const estilos = StyleSheet.create({
     conteudo: {
         flex: 1
     },
+    listaVazia: {
+        flex: 1,
+        justifyContent: "flex-end",
+        alignItems: "center",
+        opacity: 0.3,
+        paddingBottom: 50
+    },
+    balanca: {
+        width: '90%',
+        flex: 1,
+    },
     botao: {
         backgroundColor: '#2a9d8f',
         paddingVertical: 10,
@@ -40,7 +69,12 @@ const estilos = StyleSheet.create({
         marginTop: 10,
         borderRadius: 10
     },
-    texto: {
+    textoLabel: {
+        color: '#000',
+        fontSize: 25,
+        fontWeight: "bold"
+    },
+    textoBotao: {
         color: '#5ff',
         fontSize: 20,
         fontWeight: "bold"

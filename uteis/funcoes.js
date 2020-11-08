@@ -7,13 +7,13 @@ import { IMC } from './modelos';
 const listarIMCs = () => {
     let listaImc = [];
 
-    Object.keys(localStorage)
-        .filter(chave !== "altura")
-        .forEach(chave => {
-            let imcStr = localStorage.getItem(chave);
-            let imcJSON = JSON.parse(imcStr);
-            listaImc.push(imcJSON);
-        });
+    // Object.keys(localStorage)
+    //     .filter(chave !== "altura")
+    //     .forEach(chave => {
+    //         let imcStr = localStorage.getItem(chave);
+    //         let imcJSON = JSON.parse(imcStr);
+    //         listaImc.push(imcJSON);
+    //     });
 
     return listaImc;
 }
