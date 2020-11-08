@@ -1,8 +1,51 @@
 import React from 'react';
-import { Text } from 'react-native';
+import Constants from 'expo-constants';
+import { Button, Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import Logo from '../assets/icones/android-icon-192x192.png';
 
 export default function Login() {
     return (
-        <Text>Login</Text>
+        <View style={estilos.fundo}>
+            <Image source={Logo} />
+            <View style={estilos.titulo}>
+                <Text style={estilos.texto}>Resultados da</Text>
+                <Text style={estilos.texto}>Quarentena</Text>
+            </View>
+            <TouchableOpacity style={estilos.botao}>
+                <Text style={[estilos.texto, estilos.textoVerde]}>Entrar</Text>
+            </TouchableOpacity>
+        </View>
     );
 }
+
+const estilos = StyleSheet.create({
+    fundo: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: Constants.statusBarHeight,
+    },
+    titulo: {
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 20,
+        marginBottom: 60
+    },
+    texto: {
+        fontSize: 35,
+        fontWeight: "bold"
+    },
+    botao: {
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#088",
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingLeft: 60,
+        paddingRight: 60,
+        borderRadius: 20
+    },
+    textoVerde: {
+        color: '#0ff'
+    }
+});
