@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { listarIMCs } from '../uteis/funcoes';
 import balanca from '../assets/imagens/balanca_bonita.png';
 
@@ -8,7 +8,7 @@ export default function Lista() {
     const [listaIMC, setListaIMC] = useState([]);
 
     useEffect(() => {
-        let lista = listarIMCs();
+        let lista = ['asdfasf'];//listarIMCs();
         setListaIMC(lista);
     }, []);
 
@@ -21,7 +21,15 @@ export default function Lista() {
                         <Text style={estilos.textoLabel}>Nenhum I.M.C. cadastrado!</Text>
                         <Text style={estilos.textoLabel}>Vamos iniciar o controle?</Text>
                     </View> :
-                    <Text>lista</Text>
+                    <View style={estilos.lista}>
+                        <View style={[estilos.listaLinha, estilos.listaCabecalho]}>
+                            <Text style={[estilos.listaColuna, estilos.colunaCabecaolho]}>I.M.C.</Text>
+                            <Text style={[estilos.listaColuna, estilos.colunaCabecaolho]}>Data</Text>
+                            <Text style={[estilos.listaColuna, estilos.colunaCabecaolho]}></Text>
+                        </View>
+                        <ScrollView>
+                        </ScrollView>
+                    </View>
                 }
             </View>
             <View style={estilos.rodape}>
@@ -58,6 +66,19 @@ const estilos = StyleSheet.create({
         opacity: 0.3,
         paddingBottom: 50
     },
+    listaCabecalho: {
+        padding: 5,
+        borderBottomColor: '#00f9f9',
+        borderBottomWidth: 1
+    },
+    colunaCabecaolho: {
+        fontSize: 20,
+        fontWeight: "bold"
+    },
+    listaColuna: {
+        flex: 1,
+        textAlign: "center"
+    },
     balanca: {
         width: '90%',
         flex: 1,
@@ -73,6 +94,10 @@ const estilos = StyleSheet.create({
         color: '#000',
         fontSize: 25,
         fontWeight: "bold"
+    },
+    listaLinha: {
+        flexDirection: "row",
+        width: '100%'
     },
     textoBotao: {
         color: '#5ff',
