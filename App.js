@@ -25,7 +25,7 @@ export default function App() {
     <View style={styles.container}>
       { !compativel || !autenticavel || autenticado ?
         (<Principal />) :
-        (<Login />)
+        (<Login setAutenticado={setAutenticado} />)
       }
       <StatusBar style="auto" />
     </View>

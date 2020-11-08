@@ -1,9 +1,17 @@
 import React from 'react';
 import Constants from 'expo-constants';
+import * as LocalAuthentication from 'expo-local-authentication';
 import { Button, Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Logo from '../assets/icones/android-icon-192x192.png';
 
-export default function Login() {
+export default function Login({ setAutenticado }) {
+    const autenticar = async () => {
+        let auted = await LocalAuthentication.authenticateAsync({
+            promptMessage: 'Autorização',
+        });
+        if (auted.success) setAutenticado(true);
+    };
+
     return (
         <View style={estilos.fundo}>
             <Image source={Logo} />
@@ -11,7 +19,7 @@ export default function Login() {
                 <Text style={estilos.texto}>Resultados da</Text>
                 <Text style={estilos.texto}>Quarentena</Text>
             </View>
-            <TouchableOpacity style={estilos.botao}>
+            <TouchableOpacity style={estilos.botao} onPress={autenticar}>
                 <Text style={[estilos.texto, estilos.textoVerde]}>Entrar</Text>
             </TouchableOpacity>
         </View>
