@@ -47,10 +47,8 @@ const estilos = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "#088",
-        paddingTop: 10,
-        paddingBottom: 10,
-        paddingLeft: 60,
-        paddingRight: 60,
+        paddingVertical: 10,
+        paddingHorizontal: 60,
         borderRadius: 20
     },
     textoVerde: {
