@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Text, View, StyleSheet, Linking } from 'react-native';
 import Constants from 'expo-constants';
-import CorpoLista from './corpoLista';
+import Corpo from './corpo';
 
 export default function Principal() {
     const [lista, setLista] = useState([]);
@@ -19,7 +19,7 @@ export default function Principal() {
                 <Text style={[estilos.alerta, estilos.link]} onPress={acessaRelatorioOMS}>clique aqui.</Text>
                 <Text style={estilos.alerta}>OBS.: ESTA APLICAÇÃO NÃO SUBSTITUI UM DIAGNÓSTICO MÉDICO</Text>
             </View>
-            <CorpoLista lista={lista} />
+            <Corpo lista={lista} />
         </View>
     );
 }

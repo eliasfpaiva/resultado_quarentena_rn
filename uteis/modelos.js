@@ -9,7 +9,7 @@ class ConteudoModal {
 // Classe para padronização de dados I.M.C.
 class IMC {
 
-    constructor(peso, altura, sexo) {
+    constructor(peso, altura) {
         let data = new Date();
         // Armazenda a altura par facilitar novos lançamentos.
         localStorage.setItem('altura', new Number(altura));
