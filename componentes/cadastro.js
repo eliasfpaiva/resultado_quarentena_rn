@@ -1,14 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { salvarIMC, cadastroValido } from '../uteis/funcoes';
+import { ConteudoModal, IMC } from '../uteis/modelos';
 
-export default function Cadastro({ setMostrarTela }) {
+export default function Cadastro(props) {
+    const [peso, setPeso] = useState();
+    const [altura, setAltura] = useState();
 
     const salvar = () => {
-        voltar();
+        let erros = cadastroValido(peso, altura);
+        if (erros.length === 0) {
+            salvarIMC(null, new IMC(peso, altura));
+        } else {
+            props.setConteudoModal(new ConteudoModal('Preenchimento inválido', erros));
+            props.setMostrarModal(true);
+        }
+        // voltar();
     }
 
     const voltar = () => {
-        setMostrarTela(0);
+        props.setMostrarTela(0);
     }
 
     return (
@@ -16,11 +27,13 @@ export default function Cadastro({ setMostrarTela }) {
             <View style={estilos.painel}>
                 <View style={estilos.linha}>
                     <Text style={[estilos.label, estilos.texto]}>Peso:</Text>
-                    <TextInput style={[estilos.entrada, estilos.texto]} placeholder="kg" keyboardType="decimal-pad" maxLength={6} />
+                    <TextInput style={[estilos.entrada, estilos.texto]} placeholder="kg" keyboardType="number-pad" maxLength={5}
+                        defaultValue={peso} onChangeText={(peso) => setPeso(peso.replace(',', '.'))} />
                 </View>
                 <View style={estilos.linha}>
                     <Text style={[estilos.label, estilos.texto]}>Altura:</Text>
-                    <TextInput style={[estilos.entrada, estilos.texto]} placeholder="m" keyboardType="decimal-pad" maxLength={6} />
+                    <TextInput style={[estilos.entrada, estilos.texto]} placeholder="m" keyboardType="number-pad" maxLength={5}
+                        defaultValue={altura} onChangeText={(altura) => setAltura(altura.replace(',', '.'))} />
                 </View>
                 <View style={estilos.linha}>
                     <TouchableOpacity style={[estilos.botao, estilos.cancelar]} onPress={voltar}>

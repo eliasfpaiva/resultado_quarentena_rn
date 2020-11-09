@@ -5,14 +5,15 @@ import Corpo from './corpo';
 import '../uteis/modelos';
 
 export default function Principal() {
-    const [mostrarModal, setMostrarModal] = useState(true);
+    const [mostrarModal, setMostrarModal] = useState(false);
     const [conteudoModal, setConteudoModal] = useState(null);
     const [lista, setLista] = useState([]);
 
     const params = {
         setMostrarModal: setMostrarModal,
         setConteudoModal: setConteudoModal,
-        lista: lista
+        lista: lista,
+        setLista: setLista
     }
 
     const acessaRelatorioOMS = () => {
@@ -72,7 +73,7 @@ const estilos = StyleSheet.create({
         fontSize: 25
     },
     tituloModal: {
-        fontSize: 35,
+        fontSize: 30,
         textAlign: "center",
     },
     alerta: {
@@ -91,7 +92,6 @@ const estilos = StyleSheet.create({
         alignItems: "center"
     },
     janelaModal: {
-        flex: 0.3,
         backgroundColor: '#0ff',
         width: '60%',
         maxWidth: 300,
@@ -102,20 +102,20 @@ const estilos = StyleSheet.create({
         padding: 10
     },
     botao: {
-        flex: 0.7,
         width: '50%',
         alignItems: "center",
         justifyContent: "center",
         borderRadius: 10,
-        borderRadius: 10,
         borderColor: '#0aa',
         borderWidth: 3,
+        margin: 10,
+        marginTop: 20
     },
     texto: {
         color: '#2a9d8f',
     },
     textoModal: {
-        fontSize: 25,
+        fontSize: 20,
         textAlign: "center"
     },
     textoBotao: {
@@ -127,15 +127,15 @@ const estilos = StyleSheet.create({
         borderBottomWidth: 1,
         borderTopColor: '#2a9d8f',
         borderTopWidth: 1,
+        paddingVertical: 10
     },
     linhaModal: {
-        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
     },
     cabecalhoModal: {
-        flex: 1.3,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        paddingBottom: 10
     }
 });

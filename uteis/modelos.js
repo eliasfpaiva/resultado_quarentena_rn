@@ -1,3 +1,5 @@
+import { AsyncStorage } from 'react-native';
+
 // Classe para padronização do conteúdo de modal
 class ConteudoModal {
     constructor(titulo, texto) {
@@ -12,7 +14,7 @@ class IMC {
     constructor(peso, altura) {
         let data = new Date();
         // Armazenda a altura par facilitar novos lançamentos.
-        localStorage.setItem('altura', new Number(altura));
+        AsyncStorage.setItem('altura', new Number(altura));
 
         // Gera um ID a partir da data no momento do registro
         this.id = data.getTime();

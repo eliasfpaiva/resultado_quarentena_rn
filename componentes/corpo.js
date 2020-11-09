@@ -12,7 +12,7 @@ export default function Corpo(props) {
         <View style={estilos.corpo}>
             {
                 mostrarTela === 0 ? <Lista setMostrarTela={setMostrarTela} {...props} /> :
-                    (mostrarTela === 1 ? <Cadastro setMostrarTela={setMostrarTela} /> : (
+                    (mostrarTela === 1 ? <Cadastro setMostrarTela={setMostrarTela} {...props} /> : (
                         (mostrarTela === 2 ? <Visualizacao setMostrarTela={setMostrarTela} /> : (
                             <QrCode setMostrarTela={setMostrarTela} />
                         )
