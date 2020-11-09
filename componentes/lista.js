@@ -3,12 +3,12 @@ import { StyleSheet, View, Text, TouchableOpacity, Image, ScrollView } from 'rea
 import { listarIMCs } from '../uteis/funcoes';
 import balanca from '../assets/imagens/balanca_bonita.png';
 
-export default function Lista() {
+export default function Lista({ setMostrarTela }) {
     const [valorGrafico, setValorGrafico] = useState(50);
     const [listaIMC, setListaIMC] = useState([]);
 
     useEffect(() => {
-        let lista = ['asdfasf'];//listarIMCs();
+        let lista = listarIMCs();
         setListaIMC(lista);
     }, []);
 
@@ -33,7 +33,7 @@ export default function Lista() {
                 }
             </View>
             <View style={estilos.rodape}>
-                <TouchableOpacity style={estilos.botao} onPress={() => console.log('asdf')}>
+                <TouchableOpacity style={estilos.botao} onPress={() => setMostrarTela(1)}>
                     <Text style={estilos.textoBotao}>Novo I.M.C.</Text>
                 </TouchableOpacity>
                 <Text style={estilos.labelMedia}>{valorGrafico ? `Média: ${valorGrafico}` : 'Média'}</Text>

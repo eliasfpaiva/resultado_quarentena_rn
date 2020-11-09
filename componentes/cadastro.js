@@ -1,7 +1,16 @@
 import React from 'react';
 import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 
-export default function Cadastro() {
+export default function Cadastro({ setMostrarTela }) {
+
+    const salvar = () => {
+        voltar();
+    }
+
+    const voltar = () => {
+        setMostrarTela(0);
+    }
+
     return (
         <React.Fragment>
             <View style={estilos.painel}>
@@ -14,10 +23,10 @@ export default function Cadastro() {
                     <TextInput style={[estilos.entrada, estilos.texto]} placeholder="m" keyboardType="decimal-pad" maxLength={6} />
                 </View>
                 <View style={estilos.linha}>
-                    <TouchableOpacity style={[estilos.botao, estilos.cancelar]} onPress={() => { console.log("asdfas") }}>
+                    <TouchableOpacity style={[estilos.botao, estilos.cancelar]} onPress={voltar}>
                         <Text style={[estilos.texto, estilos.textoBotao]}>Cancelar</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[estilos.botao, estilos.salvar]} onPress={() => { console.log("asdfas") }}>
+                    <TouchableOpacity style={[estilos.botao, estilos.salvar]} onPress={salvar}>
                         <Text style={[estilos.texto, estilos.textoBotao]}>Salvar</Text>
                     </TouchableOpacity>
                 </View>

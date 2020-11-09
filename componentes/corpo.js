@@ -6,15 +6,15 @@ import Lista from './lista';
 import QrCode from './qrCode';
 
 export default function Corpo() {
-    const [mostrarTela, setMostrarTela] = useState(2);
+    const [mostrarTela, setMostrarTela] = useState(0);
 
     return (
         <View style={estilos.corpo}>
             {
-                mostrarTela === 0 ? <Lista /> :
-                    (mostrarTela === 1 ? <Cadastro></Cadastro> : (
-                        (mostrarTela === 2 ? <Visualizacao></Visualizacao> : (
-                            <QrCode />
+                mostrarTela === 0 ? <Lista setMostrarTela={setMostrarTela} /> :
+                    (mostrarTela === 1 ? <Cadastro setMostrarTela={setMostrarTela} /> : (
+                        (mostrarTela === 2 ? <Visualizacao setMostrarTela={setMostrarTela} /> : (
+                            <QrCode setMostrarTela={setMostrarTela} />
                         )
                         )
                     )
