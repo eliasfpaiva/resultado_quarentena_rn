@@ -6,8 +6,14 @@ import '../uteis/modelos';
 
 export default function Principal() {
     const [mostrarModal, setMostrarModal] = useState(true);
-    const [lista, setLista] = useState([]);
     const [conteudoModal, setConteudoModal] = useState(null);
+    const [lista, setLista] = useState([]);
+
+    const params = {
+        setMostrarModal: setMostrarModal,
+        setConteudoModal: setConteudoModal,
+        lista: lista
+    }
 
     const acessaRelatorioOMS = () => {
         Linking.openURL("https://www.who.int/nutrition/publications/obesity/WHO_TRS_894/en/");
@@ -18,7 +24,7 @@ export default function Principal() {
             <Modal visible={mostrarModal} transparent={true}>
                 <View style={estilos.fundoModal}>
                     <View style={estilos.janelaModal}>
-                        <View style={estilos.linhaModal}>
+                        <View style={estilos.cabecalhoModal}>
                             <Text style={[estilos.texto, estilos.tituloModal]}>{conteudoModal?.titulo}</Text>
                         </View>
                         <View style={[estilos.linhaModal, estilos.conteudoModal]}>
@@ -40,7 +46,7 @@ export default function Principal() {
                     <Text style={[estilos.alerta, estilos.link]} onPress={acessaRelatorioOMS}>clique aqui.</Text>
                     <Text style={estilos.alerta}>OBS.: ESTA APLICAÇÃO NÃO SUBSTITUI UM DIAGNÓSTICO MÉDICO</Text>
                 </View>
-                <Corpo lista={lista} />
+                <Corpo {...params} />
             </View>
         </React.Fragment>
     );
@@ -67,7 +73,7 @@ const estilos = StyleSheet.create({
     },
     tituloModal: {
         fontSize: 35,
-        textAlign: "center"
+        textAlign: "center",
     },
     alerta: {
         fontSize: 12
@@ -126,5 +132,10 @@ const estilos = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    cabecalhoModal: {
+        flex: 1.3,
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 });

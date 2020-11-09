@@ -5,13 +5,13 @@ import Visualizacao from './visualizacao';
 import Lista from './lista';
 import QrCode from './qrCode';
 
-export default function Corpo() {
+export default function Corpo(props) {
     const [mostrarTela, setMostrarTela] = useState(0);
 
     return (
         <View style={estilos.corpo}>
             {
-                mostrarTela === 0 ? <Lista setMostrarTela={setMostrarTela} /> :
+                mostrarTela === 0 ? <Lista setMostrarTela={setMostrarTela} {...props} /> :
                     (mostrarTela === 1 ? <Cadastro setMostrarTela={setMostrarTela} /> : (
                         (mostrarTela === 2 ? <Visualizacao setMostrarTela={setMostrarTela} /> : (
                             <QrCode setMostrarTela={setMostrarTela} />

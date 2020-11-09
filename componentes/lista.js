@@ -2,10 +2,26 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { listarIMCs } from '../uteis/funcoes';
 import balanca from '../assets/imagens/balanca_bonita.png';
+import { ConteudoModal } from '../uteis/modelos';
 
-export default function Lista({ setMostrarTela }) {
+export default function Lista(props) {
     const [valorGrafico, setValorGrafico] = useState(50);
     const [listaIMC, setListaIMC] = useState([]);
+
+    const modais = [
+        new ConteudoModal('Muito abaixo do peso', 'Abaixo de 17'),
+        new ConteudoModal('Abaixo do peso', 'Entre 17 e 18,49'),
+        new ConteudoModal('Peso normal', 'Entre 18,50 e 24,99'),
+        new ConteudoModal('Acima do peso', 'Entre 25 e 29,99'),
+        new ConteudoModal('Obesidade I', 'Entre 30 e 34,99'),
+        new ConteudoModal('Obesidade II (Severa)', 'Entre 35 e 39,99'),
+        new ConteudoModal('Obesidade III (Mórbida)', '40 ou mais'),
+    ];
+
+    const mostrarModal = (modal) => {
+        props.setConteudoModal(modais[modal]);
+        props.setMostrarModal(true);
+    }
 
     useEffect(() => {
         let lista = listarIMCs();
@@ -33,7 +49,7 @@ export default function Lista({ setMostrarTela }) {
                 }
             </View>
             <View style={estilos.rodape}>
-                <TouchableOpacity style={estilos.botao} onPress={() => setMostrarTela(1)}>
+                <TouchableOpacity style={estilos.botao} onPress={() => props.setMostrarTela(1)}>
                     <Text style={estilos.textoBotao}>Novo I.M.C.</Text>
                 </TouchableOpacity>
                 <Text style={estilos.labelMedia}>{valorGrafico ? `Média: ${valorGrafico}` : 'Média'}</Text>
@@ -42,13 +58,13 @@ export default function Lista({ setMostrarTela }) {
                     <View style={{ flex: (1 - (valorGrafico / 100)) }}></View>
                 </View>
                 <View style={estilos.graduacao}>
-                    <Text style={estilos.graduacaoTexto}>M.A.P.</Text>
-                    <Text style={estilos.graduacaoTexto}>AB.P.</Text>
-                    <Text style={estilos.graduacaoTexto}>P.N.</Text>
-                    <Text style={estilos.graduacaoTexto}>AC.P.</Text>
-                    <Text style={estilos.graduacaoTexto}>O.1</Text>
-                    <Text style={estilos.graduacaoTexto}>O.2</Text>
-                    <Text style={estilos.graduacaoTexto}>O.3</Text>
+                    <Text style={estilos.graduacaoTexto} onPress={() => { mostrarModal(0); }}>M.A.P.</Text>
+                    <Text style={estilos.graduacaoTexto} onPress={() => { mostrarModal(1); }}>AB.P.</Text>
+                    <Text style={estilos.graduacaoTexto} onPress={() => { mostrarModal(2); }}>P.N.</Text>
+                    <Text style={estilos.graduacaoTexto} onPress={() => { mostrarModal(3); }}>AC.P.</Text>
+                    <Text style={estilos.graduacaoTexto} onPress={() => { mostrarModal(4); }}>O.1</Text>
+                    <Text style={estilos.graduacaoTexto} onPress={() => { mostrarModal(5); }}>O.2</Text>
+                    <Text style={estilos.graduacaoTexto} onPress={() => { mostrarModal(6); }}>O.3</Text>
                 </View>
             </View>
         </React.Fragment>
