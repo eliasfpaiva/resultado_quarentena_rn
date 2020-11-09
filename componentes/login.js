@@ -47,6 +47,8 @@ const estilos = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "#088",
+        borderColor: "#077",
+        borderWidth: 1,
         paddingVertical: 10,
         paddingHorizontal: 60,
         borderRadius: 20
