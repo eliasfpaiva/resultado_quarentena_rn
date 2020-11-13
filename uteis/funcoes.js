@@ -30,7 +30,7 @@ const excluirImc = (id, atualizaListaTela) => {
 }
 
 const getImc = (id) => {
-    return banco.listaImc.filter((_imc) => _imc.id === imc.id);
+    return (listarIMCs().filter((_imc) => { return _imc.id == `${id}` }))[0];
 }
 
 // Percorre os registros presentes no localStorage

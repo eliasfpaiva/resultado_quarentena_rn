@@ -33,6 +33,8 @@ export default function Lista(props) {
         });
     }
 
+    const visualizarImc = () => { props.setMostrarTela(2); }
+
     useEffect(() => { setListaIMC(listarIMCs()); }, []);
 
     return (
@@ -53,8 +55,8 @@ export default function Lista(props) {
                         <ScrollView style={estilos.scroll}>
                             {listaIMC.map((_imc) => {
                                 return <View key={_imc.id} style={estilos.listaLinha}>
-                                    <Text style={[estilos.listaColuna, estilos.texto]}>{`${_imc.imc}`}</Text>
-                                    <Text style={[estilos.listaColuna, estilos.texto]}>{`${_imc.data}`}</Text>
+                                    <Text style={[estilos.listaColuna, estilos.texto]} onPress={() => props.setImcSelecionado(_imc.id)} >{`${_imc.imc}`}</Text>
+                                    <Text style={[estilos.listaColuna, estilos.texto]} onPress={() => props.setImcSelecionado(_imc.id)} >{`${_imc.data}`}</Text>
                                     <TouchableOpacity style={[estilos.botao, estilos.cancelar]} onPress={() => { excluirImc(_imc.id, setListaIMC); }}>
                                         <Text style={[estilos.texto, estilos.textoBotao]}>Excluir</Text>
                                     </TouchableOpacity>

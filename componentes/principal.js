@@ -7,13 +7,10 @@ import '../uteis/modelos';
 export default function Principal() {
     const [mostrarModal, setMostrarModal] = useState(false);
     const [conteudoModal, setConteudoModal] = useState(null);
-    const [lista, setLista] = useState([]);
 
     const params = {
         setMostrarModal: setMostrarModal,
         setConteudoModal: setConteudoModal,
-        lista: lista,
-        setLista: setLista
     }
 
     const acessaRelatorioOMS = () => {

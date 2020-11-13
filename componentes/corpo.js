@@ -7,13 +7,16 @@ import QrCode from './qrCode';
 
 export default function Corpo(props) {
     const [mostrarTela, setMostrarTela] = useState(0);
+    const [imcSelecionado, setImcSelecionado] = useState();
+
+    useEffect(() => { setMostrarTela(2) }, [imcSelecionado]);
 
     return (
         <View style={estilos.corpo}>
             {
-                mostrarTela === 0 ? <Lista setMostrarTela={setMostrarTela} {...props} /> :
+                mostrarTela === 0 ? <Lista setMostrarTela={setMostrarTela} setImcSelecionado={setImcSelecionado} {...props} /> :
                     (mostrarTela === 1 ? <Cadastro setMostrarTela={setMostrarTela} {...props} /> : (
-                        (mostrarTela === 2 ? <Visualizacao setMostrarTela={setMostrarTela} /> : (
+                        (mostrarTela === 2 ? <Visualizacao setMostrarTela={setMostrarTela} imcSelecionado={imcSelecionado} /> : (
                             <QrCode setMostrarTela={setMostrarTela} />
                         )
                         )
