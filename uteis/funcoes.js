@@ -1,11 +1,42 @@
-import { AsyncStorage } from 'react-native';
 import { IMC } from './modelos';
+
+class Banco {
+    constructor() {
+        this.altura = null;
+        this.listaImc = [];
+    }
+}
+
+const banco = new Banco();
+
+const salvarAltura = (altura) => {
+    banco.altura = altura;
+}
+
+const getAltura = () => {
+    return banco.altura;
+}
+
+const salvarIMC = (imc) => {
+    // Armazenda a altura par facilitar novos lançamentos.
+    salvarAltura(new Number(imc.altura));
+    banco.listaImc.push(imc);
+}
+
+const excluirImc = (id, atualizaListaTela) => {
+    let novaLista = banco.listaImc.filter((_imc) => _imc.id !== id);
+    banco.listaImc = novaLista;
+    atualizaListaTela(banco.listaImc);
+}
+
+const getImc = (id) => {
+    return banco.listaImc.filter((_imc) => _imc.id === imc.id);
+}
 
 // Percorre os registros presentes no localStorage
 // monta uma lista de objetos IMC com do dados de I.M.C.
 // encontrados e retorna a lista
 const listarIMCs = () => {
-    let listaImc = [];
 
     // Object.keys(AsyncStorage)
     //     .filter(id !== "altura")
@@ -15,11 +46,7 @@ const listarIMCs = () => {
     //         listaImc.push(imcJSON);
     //     });
 
-    return listaImc;
-}
-
-const salvarIMC = (setLista, imc) => {
-    AsyncStorage.setItem(imc.id, JSON.stringify(imc));
+    return banco.listaImc;
 }
 
 const cadastroValido = (peso, altura) => {
@@ -49,7 +76,11 @@ const cadastroValido = (peso, altura) => {
 }
 
 export {
-    listarIMCs,
+    salvarAltura,
+    getAltura,
     salvarIMC,
-    cadastroValido
+    excluirImc,
+    getImc,
+    listarIMCs,
+    cadastroValido,
 }

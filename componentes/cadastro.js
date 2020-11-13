@@ -1,21 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
-import { salvarIMC, cadastroValido } from '../uteis/funcoes';
+import { salvarIMC, cadastroValido, getAltura } from '../uteis/funcoes';
 import { ConteudoModal, IMC } from '../uteis/modelos';
 
 export default function Cadastro(props) {
     const [peso, setPeso] = useState();
     const [altura, setAltura] = useState();
 
+    useEffect(() => {
+        let altura = getAltura();
+        if (altura !== null)
+            setAltura(`${getAltura()}`)
+    }, []);
+
     const salvar = () => {
         let erros = cadastroValido(peso, altura);
         if (erros.length === 0) {
-            salvarIMC(null, new IMC(peso, altura));
+            salvarIMC(new IMC(peso, altura));
+            voltar();
         } else {
             props.setConteudoModal(new ConteudoModal('Preenchimento inválido', erros));
             props.setMostrarModal(true);
         }
-        // voltar();
     }
 
     const voltar = () => {
@@ -27,13 +33,13 @@ export default function Cadastro(props) {
             <View style={estilos.painel}>
                 <View style={estilos.linha}>
                     <Text style={[estilos.label, estilos.texto]}>Peso:</Text>
-                    <TextInput style={[estilos.entrada, estilos.texto]} placeholder="kg" keyboardType="number-pad" maxLength={5}
-                        defaultValue={peso} onChangeText={(peso) => setPeso(peso.replace(',', '.'))} />
+                    <TextInput style={[estilos.entrada, estilos.texto]} placeholder="kg" keyboardType="number-pad" maxLength={5} value={peso}
+                        onChangeText={(peso) => setPeso(peso.replace(',', '.').replace('..', '.'))} />
                 </View>
                 <View style={estilos.linha}>
                     <Text style={[estilos.label, estilos.texto]}>Altura:</Text>
-                    <TextInput style={[estilos.entrada, estilos.texto]} placeholder="m" keyboardType="number-pad" maxLength={5}
-                        defaultValue={altura} onChangeText={(altura) => setAltura(altura.replace(',', '.'))} />
+                    <TextInput style={[estilos.entrada, estilos.texto]} placeholder="m" keyboardType="number-pad" maxLength={5} value={altura}
+                        onChangeText={(altura) => setAltura(altura.replace(',', '.').replace('..', '.'))} />
                 </View>
                 <View style={estilos.linha}>
                     <TouchableOpacity style={[estilos.botao, estilos.cancelar]} onPress={voltar}>

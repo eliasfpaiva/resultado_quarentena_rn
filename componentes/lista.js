@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
-import { listarIMCs } from '../uteis/funcoes';
+import { listarIMCs, excluirImc, getAltura } from '../uteis/funcoes';
 import balanca from '../assets/imagens/balanca_bonita.png';
 import { ConteudoModal } from '../uteis/modelos';
 
@@ -23,10 +23,17 @@ export default function Lista(props) {
         props.setMostrarModal(true);
     }
 
-    useEffect(() => {
-        let lista = listarIMCs();
-        setListaIMC(lista);
-    }, []);
+    const lista = () => {
+        return listaIMC.map((imc) => {
+            return <View style={[estilos.listaLinha, estilos.listaCabecalho]}>
+                <Text style={[estilos.listaColuna, estilos.colunaCabecaolho]}>I.M.C.</Text>
+                <Text style={[estilos.listaColuna, estilos.colunaCabecaolho]}>Data</Text>
+                <Text style={[estilos.listaColuna, estilos.colunaCabecaolho]}>{listaIMC.length}</Text>
+            </View>
+        });
+    }
+
+    useEffect(() => { setListaIMC(listarIMCs()); }, []);
 
     return (
         <React.Fragment>
@@ -38,12 +45,22 @@ export default function Lista(props) {
                         <Text style={estilos.textoLabel}>Vamos iniciar o controle?</Text>
                     </View> :
                     <View style={estilos.lista}>
-                        <View style={[estilos.listaLinha, estilos.listaCabecalho]}>
+                        <View style={[estilos.listaCabecalho]}>
                             <Text style={[estilos.listaColuna, estilos.colunaCabecaolho]}>I.M.C.</Text>
                             <Text style={[estilos.listaColuna, estilos.colunaCabecaolho]}>Data</Text>
-                            <Text style={[estilos.listaColuna, estilos.colunaCabecaolho]}></Text>
+                            <Text style={[estilos.listaColuna, estilos.colunaCabecaolho, { fontSize: 15 }]}>{`Registros: ${listaIMC.length}`}</Text>
                         </View>
-                        <ScrollView>
+                        <ScrollView style={estilos.scroll}>
+                            {listaIMC.map((_imc) => {
+                                return <View key={_imc.id} style={estilos.listaLinha}>
+                                    <Text style={[estilos.listaColuna, estilos.texto]}>{`${_imc.imc}`}</Text>
+                                    <Text style={[estilos.listaColuna, estilos.texto]}>{`${_imc.data}`}</Text>
+                                    <TouchableOpacity style={[estilos.botao, estilos.cancelar]} onPress={() => { excluirImc(_imc.id, setListaIMC); }}>
+                                        <Text style={[estilos.texto, estilos.textoBotao]}>Excluir</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            }
+                            )}
                         </ScrollView>
                     </View>
                 }
@@ -72,6 +89,9 @@ export default function Lista(props) {
 }
 
 const estilos = StyleSheet.create({
+    fundoPreto: {
+        backgroundColor: "black",
+    },
     conteudo: {
         flex: 1
     },
@@ -85,7 +105,9 @@ const estilos = StyleSheet.create({
     listaCabecalho: {
         padding: 5,
         borderBottomColor: '#00f9f9',
-        borderBottomWidth: 1
+        borderBottomWidth: 1,
+        flexDirection: "row",
+        width: '100%',
     },
     colunaCabecaolho: {
         fontSize: 20,
@@ -113,7 +135,10 @@ const estilos = StyleSheet.create({
     },
     listaLinha: {
         flexDirection: "row",
-        width: '100%'
+        width: '100%',
+        height: 50,
+        justifyContent: "center",
+        alignItems: "center",
     },
     textoBotao: {
         color: '#5ff',
@@ -153,5 +178,17 @@ const estilos = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         paddingVertical: 2
+    },
+    cancelar: {
+        backgroundColor: "#ef233c",
+        borderColor: "#de122b",
+        borderWidth: 1,
+        marginHorizontal: 5,
+    },
+    texto: {
+        fontSize: 20,
+    },
+    scroll: {
+        paddingBottom: 5,
     }
 });
