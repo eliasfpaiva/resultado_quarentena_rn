@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { TouchableOpacity, Text, StyleSheet, Image, View } from 'react-native';
 import balanca from '../assets/imagens/balanca_bonita.png';
 
-export default function QrCode() {
+export default function QrCode({ setMostrarTela }) {
+    useEffect(() => setMostrarTela(0), []);
     return (
         <View style={estilos.painel}>
-            <Image style={estilos.balanca} source={balanca} resizeMethod="resize" resizeMode="contain" />
+            {/* <Image style={estilos.balanca} source={balanca} resizeMethod="resize" resizeMode="contain" />
             <View style={estilos.linha}>
                 <TouchableOpacity style={[estilos.botao, estilos.voltar]} onPress={() => { console.log("asdfas") }}>
                     <Text style={[estilos.texto, estilos.textoBotaoVoltar]}>Voltar</Text>
                 </TouchableOpacity>
-            </View>
+            </View> */}
         </View>
     );
 }

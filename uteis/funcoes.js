@@ -26,7 +26,7 @@ const salvarIMC = (imc) => {
 const excluirImc = (id, atualizaListaTela) => {
     let novaLista = banco.listaImc.filter((_imc) => _imc.id !== id);
     banco.listaImc = novaLista;
-    atualizaListaTela(banco.listaImc);
+    if (atualizaListaTela) atualizaListaTela(banco.listaImc);
 }
 
 const getImc = (id) => {

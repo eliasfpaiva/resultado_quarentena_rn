@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-nativ
 import { excluirImc, getImc } from '../uteis/funcoes';
 
 export default function Visualizacao({ setMostrarTela, imcSelecionado }) {
+    const [id, setId] = useState();
     const [peso, setPeso] = useState();
     const [altura, setAltura] = useState();
     const [data, setData] = useState();
@@ -13,11 +14,13 @@ export default function Visualizacao({ setMostrarTela, imcSelecionado }) {
     const carregaDados = () => {
         let _imc = getImc(imcSelecionado);
         if (_imc) {
+            let _id = Number(_imc.id);
             let _peso = Number(_imc.peso).toFixed(2);
             let _altura = Number(_imc.altura).toFixed(2);
             let _data = _imc.data;
             let _imcValor = Number(_imc.imc).toFixed(2);
 
+            setId(_id);
             setPeso(_peso);
             setAltura(_altura);
             setData(_data);
@@ -26,7 +29,7 @@ export default function Visualizacao({ setMostrarTela, imcSelecionado }) {
     }
 
     const excluir = () => {
-        excluirImc(imc.id);
+        excluirImc(id);
         voltar();
     }
 
