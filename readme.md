@@ -4,7 +4,7 @@
 **Elias Flávio de Paiva**
 **Gabriela Letícia Coelho Cássio**
 
-### Repl.it https://repl.it/@eliasfpaiva
+### Repl.it https://snack.expo.io/@eliasfpaiva/resultado_quarentena_rn
 
 O objetivo desta aplicação é permitir o cadastro de medições de características corporais para acompanhamento do IMC de quem utiliza a aplicação.
 
