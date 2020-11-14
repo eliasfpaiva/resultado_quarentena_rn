@@ -56,4 +56,4 @@ Nesta aplicação, os dados do usuário que são armazenados são: peso e altura
 
 ## 4. Observação
 
-- Infelizmente, não conseguimos utilizar o componente de armazenamento local. Optamos por uma classe que guarda os valores para possibilitar os testes e desenvolvimento.
+- Infelizmente, não conseguimos utilizar o componente de armazenamento local. Optamos por uma classe que guarda os valores para possibilitar os testes e desenvolvimento. Por isso a resposta das duas últimas perguntas do item 3 é "Não"
