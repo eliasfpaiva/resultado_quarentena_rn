@@ -12,15 +12,17 @@ export default function Visualizacao({ setMostrarTela, imcSelecionado }) {
 
     const carregaDados = () => {
         let _imc = getImc(imcSelecionado);
-        let _peso = Number(_imc.peso).toFixed(2);
-        let _altura = Number(_imc.altura).toFixed(2);
-        let _data = _imc.data;
-        let _imcValor = Number(_imc.imc).toFixed(2);
+        if (_imc) {
+            let _peso = Number(_imc.peso).toFixed(2);
+            let _altura = Number(_imc.altura).toFixed(2);
+            let _data = _imc.data;
+            let _imcValor = Number(_imc.imc).toFixed(2);
 
-        setPeso(_peso);
-        setAltura(_altura);
-        setData(_data);
-        setImcValor(_imcValor);
+            setPeso(_peso);
+            setAltura(_altura);
+            setData(_data);
+            setImcValor(_imcValor);
+        }
     }
 
     const excluir = () => {
