@@ -1,14 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
-import { excluirImc, getImc, listarIMCs } from '../uteis/funcoes';
+import { excluirImc, getImc } from '../uteis/funcoes';
 
 export default function Visualizacao({ setMostrarTela, imcSelecionado }) {
-    const [imc, setImc] = useState();
+    const [peso, setPeso] = useState();
+    const [altura, setAltura] = useState();
+    const [data, setData] = useState();
+    const [imcValor, setImcValor] = useState();
 
-    useEffect(() => {
+    useEffect(() => { carregaDados() }, []);
+
+    const carregaDados = () => {
         let _imc = getImc(imcSelecionado);
-        setImc(_imc);
-    }, []);
+        let _peso = Number(_imc.peso).toFixed(2);
+        let _altura = Number(_imc.altura).toFixed(2);
+        let _data = _imc.data;
+        let _imcValor = Number(_imc.imc).toFixed(2);
+
+        setPeso(_peso);
+        setAltura(_altura);
+        setData(_data);
+        setImcValor(_imcValor);
+    }
 
     const excluir = () => {
         excluirImc(imc.id);
@@ -19,30 +32,26 @@ export default function Visualizacao({ setMostrarTela, imcSelecionado }) {
         setMostrarTela(0);
     }
 
-    const toString = (valor) => {
-        return JSON.stringify(valor);
-    }
-
     return (
         <React.Fragment>
             <View style={estilos.painel}>
                 <View style={estilos.linha}>
                     <Text style={[estilos.label, estilos.texto]}>Peso:</Text>
                     <View style={estilos.campo}>
-                        {/* <Text style={[estilos.entrada, estilos.texto]}>{toString(imc.peso)}</Text> */}
+                        <Text style={[estilos.entrada, estilos.texto]}>{peso}</Text>
                     </View>
                 </View>
                 <View style={estilos.linha}>
                     <Text style={[estilos.label, estilos.texto]}>Altura:</Text>
                     <View style={estilos.campo}>
-                        {/* <Text style={[estilos.entrada, estilos.texto]}>{imc.altura}</Text> */}
+                        <Text style={[estilos.entrada, estilos.texto]}>{altura}</Text>
                     </View>
                 </View>
                 <View style={[estilos.linha, estilos.linhaData]}>
-                    {/* <Text style={estilos.textoData}>Data: {imc.data}</Text> */}
+                    <Text style={estilos.textoData}>Data: {data}</Text>
                 </View>
                 <View style={[estilos.linha, estilos.linhaIMC]}>
-                    {/* <Text style={estilos.texto}>I.M.C.: {imc.imc}</Text> */}
+                    <Text style={estilos.texto}>I.M.C.: {imcValor}</Text>
                 </View>
                 <View style={estilos.linha}>
                     <TouchableOpacity style={[estilos.botao, estilos.cancelar]} onPress={() => { excluir() }}>
