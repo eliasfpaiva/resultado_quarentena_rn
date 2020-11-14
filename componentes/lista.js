@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
-import { listarIMCs, excluirImc, getAltura } from '../uteis/funcoes';
+import { listarIMCs, excluirImc, getAltura, calcularValorGrafico, calcularMedia } from '../uteis/funcoes';
 import balanca from '../assets/imagens/balanca_bonita.png';
 import { ConteudoModal } from '../uteis/modelos';
 
 export default function Lista(props) {
-    const [valorGrafico, setValorGrafico] = useState(50);
+    const [media, setMedia] = useState(0);
+    const [valorGrafico, setValorGrafico] = useState(0);
     const [listaIMC, setListaIMC] = useState([]);
+    const [estiloFaixa, setEstilosFaixa] = useState([{}, {}, {}, {}, {}, {}, {}]);
 
     const modais = [
         new ConteudoModal('Muito abaixo do peso', 'Abaixo de 17'),
@@ -33,9 +35,22 @@ export default function Lista(props) {
         });
     }
 
-    const visualizarImc = () => { props.setMostrarTela(2); }
+    useEffect(() => {
+        setListaIMC(listarIMCs());
+    }, []);
 
-    useEffect(() => { setListaIMC(listarIMCs()); }, []);
+    useEffect(() => {
+        let valores = calcularValorGrafico();
+        setValorGrafico(valores.valor);
+        setMedia(Number(calcularMedia()).toFixed(2));
+
+        let _estilosFaixa = [{}, {}, {}, {}, {}, {}, {}];
+        if (valores.faixa) {
+            _estilosFaixa[valores.faixa] = { backgroundColor: '#00f9f9' };
+        }
+        setEstilosFaixa(_estilosFaixa);
+
+    }, [listaIMC]);
 
     return (
         <React.Fragment>
@@ -71,19 +86,19 @@ export default function Lista(props) {
                 <TouchableOpacity style={estilos.botao} onPress={() => props.setMostrarTela(1)}>
                     <Text style={estilos.textoBotao}>Novo I.M.C.</Text>
                 </TouchableOpacity>
-                <Text style={estilos.labelMedia}>{valorGrafico ? `Média: ${valorGrafico}` : 'Média'}</Text>
+                <Text style={estilos.labelMedia}>{valorGrafico ? `Média: ${media}` : 'Média'}</Text>
                 <View style={estilos.progress}>
                     <View style={[estilos.progressPreenchida, { flex: (valorGrafico / 100) }]}></View>
                     <View style={{ flex: (1 - (valorGrafico / 100)) }}></View>
                 </View>
                 <View style={estilos.graduacao}>
-                    <Text style={estilos.graduacaoTexto} onPress={() => { mostrarModal(0); }}>M.A.P.</Text>
-                    <Text style={estilos.graduacaoTexto} onPress={() => { mostrarModal(1); }}>AB.P.</Text>
-                    <Text style={estilos.graduacaoTexto} onPress={() => { mostrarModal(2); }}>P.N.</Text>
-                    <Text style={estilos.graduacaoTexto} onPress={() => { mostrarModal(3); }}>AC.P.</Text>
-                    <Text style={estilos.graduacaoTexto} onPress={() => { mostrarModal(4); }}>O.1</Text>
-                    <Text style={estilos.graduacaoTexto} onPress={() => { mostrarModal(5); }}>O.2</Text>
-                    <Text style={estilos.graduacaoTexto} onPress={() => { mostrarModal(6); }}>O.3</Text>
+                    <Text style={[estilos.graduacaoTexto, estiloFaixa[0]]} onPress={() => { mostrarModal(0); }}>M.A.P.</Text>
+                    <Text style={[estilos.graduacaoTexto, estiloFaixa[1]]} onPress={() => { mostrarModal(1); }}>AB.P.</Text>
+                    <Text style={[estilos.graduacaoTexto, estiloFaixa[2]]} onPress={() => { mostrarModal(2); }}>P.N.</Text>
+                    <Text style={[estilos.graduacaoTexto, estiloFaixa[3]]} onPress={() => { mostrarModal(3); }}>AC.P.</Text>
+                    <Text style={[estilos.graduacaoTexto, estiloFaixa[4]]} onPress={() => { mostrarModal(4); }}>O.1</Text>
+                    <Text style={[estilos.graduacaoTexto, estiloFaixa[5]]} onPress={() => { mostrarModal(5); }}>O.2</Text>
+                    <Text style={[estilos.graduacaoTexto, estiloFaixa[6]]} onPress={() => { mostrarModal(6); }}>O.3</Text>
                 </View>
             </View>
         </React.Fragment>

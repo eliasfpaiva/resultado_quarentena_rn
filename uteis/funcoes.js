@@ -49,6 +49,70 @@ const listarIMCs = () => {
     return banco.listaImc;
 }
 
+// Percorre a lista de I.M.C. e calcula e retorn
+// a média do valor dos registros encontrados
+const calcularMedia = () => {
+    let soma = 0;
+
+    let listaImc = listarIMCs();
+
+    if (listaImc.length == 0) return 0;
+
+    listaImc.forEach((imc) => { soma += imc.imc; });
+
+    return (new Number(soma / listaImc.length));
+}
+
+// Calcula o valor que o gráfico deve indicar
+// apesar das faixas possuírem laguras diferentes,
+// o gráfico trata todas com a mesma largura para visualização
+// respeitando os valores correspondentes.
+const calcularValorGrafico = () => {
+    let media = calcularMedia();
+    let valorGrafico = 0;
+    let numeroFaixa = null;
+
+    if (media >= 40) {
+        valorGrafico = 100;
+        numeroFaixa = 6;
+    } else {
+        let baseFaixa = 0;
+        let larguraFaixa = 0;
+        let larguraColuna = 100 / 7;
+
+        if (media >= 35) {
+            baseFaixa = 35;
+            larguraFaixa = 39.99 - baseFaixa;
+            numeroFaixa = 5
+        } else if (media >= 30) {
+            baseFaixa = 30;
+            larguraFaixa = 34.99 - baseFaixa;
+            numeroFaixa = 4
+        } else if (media >= 25) {
+            baseFaixa = 25;
+            larguraFaixa = 29.99 - baseFaixa;
+            numeroFaixa = 3
+        } else if (media >= 18.50) {
+            baseFaixa = 18.50;
+            larguraFaixa = 24.99 - baseFaixa;
+            numeroFaixa = 2;
+        } else if (media >= 17) {
+            baseFaixa = 17;
+            larguraFaixa = 18.49 - baseFaixa;
+            numeroFaixa = 1;
+        } else {
+            larguraFaixa = 17;
+            numeroFaixa = 0;
+        }
+
+        let valorIncremento = media - baseFaixa;
+        let preenchimentoIncremento = ((valorIncremento / larguraFaixa) * larguraColuna);
+        valorGrafico = ((numeroFaixa * larguraColuna) + preenchimentoIncremento);
+    }
+
+    return { valor: valorGrafico, faixa: numeroFaixa };
+}
+
 const cadastroValido = (peso, altura) => {
     let msgs = "";
 
@@ -83,4 +147,6 @@ export {
     getImc,
     listarIMCs,
     cadastroValido,
+    calcularMedia,
+    calcularValorGrafico
 }
